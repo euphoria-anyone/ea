@@ -1,0 +1,7 @@
+C:\rkis\game\game\bin\x86\Debug\game.exe.config
+C:\rkis\game\game\bin\x86\Debug\game.exe
+C:\rkis\game\game\bin\x86\Debug\game.pdb
+C:\rkis\game\game\obj\x86\Debug\game.csprojAssemblyReference.cache
+C:\rkis\game\game\obj\x86\Debug\game.csproj.CoreCompileInputs.cache
+C:\rkis\game\game\obj\x86\Debug\game.exe
+C:\rkis\game\game\obj\x86\Debug\game.pdb
