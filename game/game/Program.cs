@@ -18,13 +18,13 @@ namespace game
         static int[] tailY = new int[360];
         static int ntail = 1;
         static public bool gameover;
-        const int width = 10;
-        const int height = 10;
+        static public int width;
+        static public int height;
         static public int x, y, fruitx, fruity, score;      
         static public Direction dir;
         
 
-        static public void Setup()//функция настройки нужных параметров
+        static void Setup()//функция настройки нужных параметров
         {
             Random rand = new Random();
             int random = rand.Next();
@@ -42,9 +42,9 @@ namespace game
         {
             Console.Clear();
 
-            for (int i = 0; i < width; ++i)
+            for (int i = 0; i <= width; ++i)
             {
-                Console.Write(" #");
+                Console.Write("#");
             }
             Console.WriteLine(); 
 
@@ -54,12 +54,12 @@ namespace game
                 {
                     if (j == 0 || j == (width - 1))
                     {
-                        Console.WriteLine("#");
+                        Console.Write("#");
                     }
                     if (i == y && j == x)
                     {
                         Console.ForegroundColor = ConsoleColor.Yellow;
-                        Console.Write("o");
+                        Console.Write("O");
                     }
                     else if (i == fruity && j == fruitx)
                     {
@@ -73,9 +73,8 @@ namespace game
                         {
                             if (tailX[k] == j && tailY[k] == i)
                             {
-                                Console.ForegroundColor = ConsoleColor.Yellow;
-                                Console.Write("o");
                                 print = true;
+                                Console.Write("o");
                             }
                         }
                         if (!print)
@@ -95,30 +94,37 @@ namespace game
             Console.WriteLine("\nscore: " + score);
         }
 
-        static public void Input()//функция отслежки нажатий от игрока 
-        {
-            if (Console.KeyAvailable)
+        static void Input()//функция отслежки нажатий от игрока 
+        {   
+            ConsoleKey keyInfo = Console.ReadKey(true).Key;
+            switch (keyInfo)
             {
-                ConsoleKey keyInfo = Console.ReadKey(true).Key;
-                switch (keyInfo)
-                {
-                    case ConsoleKey.UpArrow:
+                case ConsoleKey.UpArrow:
+                case ConsoleKey.DownArrow:
+                    if (keyInfo == ConsoleKey.UpArrow)
+                    {
                         dir = Direction.Up;
-                        break;
-                    case ConsoleKey.DownArrow:
+                    }
+                    else if(keyInfo == ConsoleKey.DownArrow)
+                    {
                         dir = Direction.Down;
-                        break;
-                    case ConsoleKey.LeftArrow:
+                    }
+                    break;
+                case ConsoleKey.LeftArrow:
+                case ConsoleKey.RightArrow:
+                    if (keyInfo == ConsoleKey.LeftArrow)
+                    {
                         dir = Direction.Left;
-                        break;
-                    case ConsoleKey.RightArrow:
+                    }
+                    else if (keyInfo == ConsoleKey.RightArrow)
+                    {
                         dir = Direction.Right;
-                        break;
-                    case ConsoleKey.Escape:
-                        gameover = true;
-                        break;
-                }
-            }     
+                    }
+                    break;
+                case ConsoleKey.Escape:
+                    gameover = true;
+                    break;
+            }  
         }
         static public void Logic()//функция логики игры
         {
@@ -155,9 +161,10 @@ namespace game
                     x++;
                     break;
             }
-            if (x > width || x < 0 || y > height || y < 0)
+            if (x == width || x < 0 || y == height || y < 0)
             {
                 gameover = true;
+                Console.WriteLine("!!!!!!!!!!!!!!GAMEOVER!!!!!!!!!!!!!!!");
             }
             if (x == fruitx && y == fruity)
             {
@@ -180,6 +187,8 @@ namespace game
             Console.Clear();
             if (n == Easy)
             {
+                width = 10;
+                height = 10;
                 Setup();
                 while (!gameover)
                 {
@@ -190,7 +199,8 @@ namespace game
             }
             else if (n == Medium)
             {
-
+                width = 20;
+                height = 20;
                 Setup();
                 while (!gameover)
                 {
@@ -201,7 +211,8 @@ namespace game
             }
             else if (n == Hard)
             {
-
+                width = 30;
+                height = 30;
                 Setup();
                 while (!gameover)
                 {
